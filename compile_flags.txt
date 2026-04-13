@@ -1,5 +1,5 @@
---std=c23
 -Iinclude
 -Isrc
 -lAidan
+--std=c23
 
