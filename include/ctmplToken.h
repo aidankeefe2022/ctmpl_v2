@@ -7,6 +7,9 @@
 
 #include <LibAidan/AidanCommon.h>
 #include <LibAidan/AidanString.h>
+#include <LibAidan/AidanAidAllocator.h>
+#include <LibAidan/AidanArena.h>
+#include <LibAidan/AidanDynaArray.h>
 #include <stdio.h>
 #include <sys/stat.h>
 
@@ -15,6 +18,8 @@ typedef struct CtmplToken{
 	struct aid_string text;
 }CtmplToken;
 
-CtmplToken* ctmpl_tokenizeFile(FILE* file);
+ArrayCreate(CtmplToken, CtmplToken);
+
+Array_CtmplToken ctmpl_tokenizeFile(FILE* file);
 
 #endif //CTMPL_V2_CTMPLTOKEN_H
