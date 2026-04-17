@@ -56,20 +56,24 @@ static struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, st
 }
 
 
-//TODO fix
+//Holy builder pattern in C
 Array_CtmplToken tokenizeCodeSegment(struct aid_arena* a, struct aid_string string) {
 	Array_CtmplToken tokens = {0};
+	char buffer[1024] =	{0};
+	struct aid_string s = {.cap = 1024, 0, buffer};
 	for (u64 i = 2; string.s[i] != '}'; i++) {
 		/*skip white space*/
-		while (isspace(string.s[i]))
-			i++;
-		u64 lastChar = i;
-		/*get text between white space*/
-		while (!isspace(string.s[i+1]) && string.s[i+1] != '}')
-			i++;
-		struct aid_string* newTokenString = aid_str_new(a, 0, "",  i-lastChar+1);
-		aid_str_substring(&string, newTokenString, lastChar, i);
-		aid_arr_push(tokens, ((CtmplToken){0, *newTokenString}));
+		if (isspace(string.s[i])) {
+			if (s.length > 0) {
+				aid_arr_push(tokens, ((CtmplToken){0, *aid_str_new(a, s.length, s.s, s.cap)}));
+				aid_str_clear(&s);
+			}
+		}else {
+			aid_str_append_char(&s, string.s[i]);
+		}
+	}
+	if (s.length > 0) {
+		aid_arr_push(tokens, ((CtmplToken){0, *aid_str_new(a, s.length, s.s, s.cap)}));
 	}
 	return tokens;
 }

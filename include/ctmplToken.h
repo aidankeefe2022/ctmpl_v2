@@ -4,7 +4,6 @@
 
 #ifndef CTMPL_V2_CTMPLTOKEN_H
 #define CTMPL_V2_CTMPLTOKEN_H
-
 #include <LibAidan/AidanCommon.h>
 #include <LibAidan/AidanString.h>
 #include <LibAidan/AidanAidAllocator.h>
