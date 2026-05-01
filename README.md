@@ -2,3 +2,6 @@
 
 # assumes use of libAidan
 
+```aiignore
+%{for x in y : <b>$x<\b>}%
+```
