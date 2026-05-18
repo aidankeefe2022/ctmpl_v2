@@ -12,6 +12,9 @@
 #include <stdio.h>
 #include <sys/stat.h>
 
+//feature flags
+#define CTMPL_VARIABLE 1
+
 typedef struct CtmplToken{
 	u64 features;
 	struct aid_string text;

@@ -5,9 +5,9 @@
 #ifndef CTMPL_V2_CTMPLEVALUATOR_H
 #define CTMPL_V2_CTMPLEVALUATOR_H
 #include "ctmplToken.h"
+#include "ctmplParameters.h"
 
-typedef struct param
 
-struct aid_string* ctmplEvaluateCodeSection(,Array_CtmplToken arr);
+struct aid_string* ctmplEvaluateCodeSection(ctmpl_params params,Array_CtmplToken arr);
 
 #endif //CTMPL_V2_CTMPLEVALUATOR_H
