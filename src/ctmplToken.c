@@ -3,15 +3,6 @@
 
 #include <ctype.h>
 
-static u64 fileSize(FILE* file){
-	if (!file)
-		return 0;
-
-	fseek(file, 0, SEEK_END);
-	u64 fileSize = ftell(file);
-	fseek(file, 0, SEEK_END);
-	return fileSize;
-}
 
 bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex) {
 	if (currentIndex >= string->length-1)
