@@ -29,10 +29,10 @@ int testFindParamters(test_arg) {
  t_assert(ctmpl_addParam(&params, STR_LIT("key2"), STR_LIT("val2")));
  t_assert(params.params.size == 2);
 
- String val = ctmpl_findParam(&params, STR_LIT("key1"));
+ String val = ctmpl_findParam(params, STR_LIT("key1"));
  t_assert(str_cmp(&val, &STR_LIT("val1")));
 
- String val2 = ctmpl_findParam(&params, STR_LIT("key2"));
+ String val2 = ctmpl_findParam(params, STR_LIT("key2"));
  t_assert(str_cmp(&val2, &STR_LIT("val2")));
 
  ctmpl_freeParams(&params);
@@ -44,7 +44,7 @@ int testFindMissingParameter(test_arg) {
  t_assert(ctmpl_addParam(&params, STR_LIT("key1"), STR_LIT("val1")));
  t_assert(ctmpl_addParam(&params, STR_LIT("key2"), STR_LIT("val2")));
 
- String missing = ctmpl_findParam(&params, STR_LIT("key3"));
+ String missing = ctmpl_findParam(params, STR_LIT("key3"));
  t_assert(missing.s == nullptr);
  t_assert(missing.cap == 0);
  t_assert(missing.length == 0);
@@ -59,7 +59,7 @@ int testFindParameterUsesFirstMatch(test_arg) {
  t_assert(ctmpl_addParam(&params, STR_LIT("dup"), STR_LIT("second")));
  t_assert(params.params.size == 2);
 
- String val = ctmpl_findParam(&params, STR_LIT("dup"));
+ String val = ctmpl_findParam(params, STR_LIT("dup"));
  t_assert(str_cmp(&val, &STR_LIT("first")));
 
  ctmpl_freeParams(&params);

@@ -22,14 +22,14 @@ static bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex) {
 }
 
 static bool isEndOfCodeSection(struct aid_string* string, u64 currentIndex) {
-	if (currentIndex >= string->length-1)
+	if (currentIndex >= string->length)
 		return false;
 	if (string->s[currentIndex] == '%'  && string->s[currentIndex-1] == '}')
 		return true;
 	return false;
 }
 
-static struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, struct aid_string* string) {
+struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, struct aid_string* string) {
 	/*%{code}%*/
 	u64 currentIndex = 0;
 	struct aid_DArray_string templCodeSegments = {0};
@@ -39,6 +39,8 @@ static struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, st
 	bool codeSectionFound = false;
 	while (currentIndex < string->length) {
 		if (isStartOfCodeSection(string, currentIndex)) {
+			if (codeSectionFound)
+				return (struct aid_DArray_string){0};
 			codeSectionFound = true;
 			startIndex = currentIndex;
 		}
@@ -61,12 +63,12 @@ static struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, st
 Array_CtmplToken tokenizeCodeSegment(struct aid_arena* a, struct aid_string string) {
 	Array_CtmplToken tokens = {0};
 	char buffer[1024] =	{0};
-	struct aid_string s = {.cap = 1024, 0, buffer};
+	struct aid_string s = {.cap = 1024, 0, 0,buffer};
 	for (u64 i = 2; string.s[i] != '}'; i++) {
 		/*skip white space*/
 		if (isspace(string.s[i])) {
 			if (s.length > 0) {
-				aid_arr_push(tokens, ((CtmplToken){0, *aid_str_new(a, s.length, s.s, s.length)}));
+				aid_arr_push(tokens, ((CtmplToken){CTMPL_VARIABLE, *aid_str_new(a, s.length, s.s, s.length)}));
 				aid_str_clear(&s);
 			}
 		}else {
@@ -74,7 +76,7 @@ Array_CtmplToken tokenizeCodeSegment(struct aid_arena* a, struct aid_string stri
 		}
 	}
 	if (s.length > 0) {
-		aid_arr_push(tokens, ((CtmplToken){0, *aid_str_new(a, s.length, s.s, s.cap)}));
+		aid_arr_push(tokens, ((CtmplToken){CTMPL_VARIABLE, *aid_str_new(a, s.length, s.s, s.cap)}));
 	}
 	return tokens;
 }

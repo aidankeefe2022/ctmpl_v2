@@ -26,8 +26,8 @@ bool ctmpl_addParam(ctmpl_params *params, struct aid_string key,struct aid_strin
     return true;
 }
 
-struct aid_string ctmpl_findParam(ctmpl_params *params, struct aid_string key) {
-    for (struct aid_LLNode* node = params->params.head; node != nullptr; node = node->next) {
+struct aid_string ctmpl_findParam(ctmpl_params params, struct aid_string key) {
+    for (struct aid_LLNode* node = params.params.head; node != nullptr; node = node->next) {
         ctmpl_param *param = (ctmpl_param*)(node->VOIDPTR);
         if (aid_str_cmp(&param->key, &key)) {
             return param->text_value;

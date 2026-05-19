@@ -22,6 +22,7 @@ typedef struct CtmplToken{
 
 ArrayCreate(CtmplToken, CtmplToken);
 
-Array_CtmplToken ctmpl_tokenizeFile(FILE* file);
+struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, struct aid_string* string);
+Array_CtmplToken tokenizeCodeSegment(struct aid_arena* a, struct aid_string string);
 
 #endif //CTMPL_V2_CTMPLTOKEN_H
