@@ -13,7 +13,7 @@ static u64 fileSize(FILE* file){
 	return fileSize;
 }
 
-static bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex) {
+bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex) {
 	if (currentIndex >= string->length-1)
 		return false;
 	if (string->s[currentIndex] == '%'  && string->s[currentIndex+1] == '{')
@@ -21,7 +21,7 @@ static bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex) {
 	return false;
 }
 
-static bool isEndOfCodeSection(struct aid_string* string, u64 currentIndex) {
+bool isEndOfCodeSection(struct aid_string* string, u64 currentIndex) {
 	if (currentIndex >= string->length)
 		return false;
 	if (string->s[currentIndex] == '%'  && string->s[currentIndex-1] == '}')

@@ -6,6 +6,8 @@
 #include <LibAidan/AidanLinkedList.h>
 #include <LibAidan/AidanAidAllocator.h>
 
+typedef struct ctmpl_param ctmpl_param;
+
 struct ctmpl_param {
     struct aid_string key;
     struct aid_string text_value;

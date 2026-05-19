@@ -7,7 +7,6 @@
 
 #include <LibAidan/AidanString.h>
 
-typedef struct ctmpl_param ctmpl_param;
 
 typedef struct ctmpl_params ctmpl_params;
 

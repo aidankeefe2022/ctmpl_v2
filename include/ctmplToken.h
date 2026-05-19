@@ -22,6 +22,8 @@ typedef struct CtmplToken{
 
 ArrayCreate(CtmplToken, CtmplToken);
 
+bool isStartOfCodeSection(struct aid_string* string, u64 currentIndex);
+bool isEndOfCodeSection(struct aid_string* string, u64 currentIndex);
 struct aid_DArray_string extractTemplCodeSegments(struct aid_arena* a, struct aid_string* string);
 Array_CtmplToken tokenizeCodeSegment(struct aid_arena* a, struct aid_string string);
 
